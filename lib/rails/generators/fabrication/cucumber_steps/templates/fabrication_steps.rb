@@ -4,7 +4,7 @@ Fabrication::Config.register_with_steps = true
 
 def with_ivars(fabricator)
   @they = yield fabricator
-  model = @they.last.class.to_s.underscore
+  model = @they.last.class.to_s.underscore.gsub(/\//, '_')
   instance_variable_set("@#{model.pluralize}", @they)
   instance_variable_set("@#{model.singularize}", @they.last)
   Fabrication::Cucumber::Fabrications[model.singularize.gsub(/\W+/,'_').downcase] = @they.last
